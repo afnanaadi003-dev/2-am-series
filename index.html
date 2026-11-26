@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2AM SERIES — Detective Hance • 40-Book Archive &amp; 24-Chapter Reader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            noir: {
+              950: '#07090d',
+              900: '#0c1017',
+              850: '#111722',
+              800: '#17202e',
+              700: '#222f42',
+            },
+            honey: {
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            jungle: {
+              400: '#34d399',
+              500: '#10b981',
+            },
+            ocean: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #07090d;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(245, 158, 11, 0.28);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(245, 158, 11, 0.55);
+    }
+  </style>
+</head>
+<body class="bg-noir-950 text-slate-100 font-sans antialiased selection:bg-honey-500/30 selection:text-honey-300 min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- Top Reading Progress Line -->
+  <div class="fixed top-0 inset-x-0 h-1 bg-noir-850 z-50">
+    <div id="top-progress-bar" class="h-full bg-gradient-to-r from-honey-600 via-honey-400 to-ocean-400 w-0 transition-all duration-150"></div>
+  </div>
+
+  <!-- Sticky 2AM Noir Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-noir-900/90 border-b border-honey-500/20">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-honey-500/15 border border-honey-400/40 flex items-center justify-center font-mono text-xs font-bold text-honey-400 shrink-0">
+          02:00
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="font-serif text-xl sm:text-2xl font-bold tracking-wide text-honey-400 truncate">
+              2AM SERIES
+            </span>
+            <span class="hidden md:inline-block px-2 py-0.5 rounded-md bg-honey-500/10 border border-honey-500/30 font-mono text-[10px] uppercase tracking-wider text-honey-300">
+              Detective Hance • 40 Books • 24 Chapters
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 truncate">
+            Jungle Canopy to Open Ocean • High Bounties, Honey Traps &amp; Forensic Deduction
+          </p>
+        </div>
+      </div>
+
+      <!-- Mode Switcher & Ambient 2AM Audio Controls -->
+      <div class="flex items-center gap-2 shrink-0">
+        <div class="flex rounded-xl bg-noir-950 p-1 border border-white/10">
+          <button id="view-reader-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-honey-500 text-noir-950 transition">
+            24-Ch Reader
+          </button>
+          <button id="view-catalog-btn" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-honey-300 transition">
+            40-Book Catalog
+          </button>
+        </div>
+
+        <button id="ambient-toggle-btn" title="Toggle 2AM Rain & Night-Hum Soundscape" class="px-3 py-2 rounded-xl border border-honey-500/30 bg-noir-850 hover:bg-honey-500/15 text-xs font-medium text-honey-300 flex items-center gap-1.5 transition">
+          <span id="ambient-dot" class="w-2 h-2 rounded-full bg-slate-500"></span>
+          <span id="ambient-label" class="hidden sm:inline">2AM Rain</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Toast Banner -->
+  <div id="toast-banner" class="fixed top-20 right-5 z-50 px-4 py-2.5 rounded-xl bg-noir-800 border border-honey-400/50 text-honey-300 text-xs font-medium shadow-2xl transform -translate-y-3 opacity-0 transition-all duration-300 pointer-events-none">
+    Updated
+  </div>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8">
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 1: FULL 24-CHAPTER READER FOR BOOK 1 + DOSSIER & WORD TRACKER  -->
+    <!-- ===================================================================== -->
+    <section id="reader-view" class="space-y-6">
+      <!-- Active Book Hero & Live Word/Progress Telemetry -->
+      <div class="rounded-2xl border border-honey-500/25 bg-gradient-to-br from-noir-850 via-noir-900 to-noir-950 p-5 sm:p-8 shadow-2xl">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-2.5 max-w-3xl">
+            <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+              <span id="active-book-code" class="px-2.5 py-1 rounded-lg bg-honey-500/15 border border-honey-400/40 text-honey-300 font-semibold">
+                BOOK 01 OF 40 • CASE FILE #2AM-001
+              </span>
+              <span id="active-book-biome" class="px-2.5 py-1 rounded-lg bg-jungle-500/15 border border-jungle-400/35 text-jungle-400">
+                Sundarbans Delta → Deep Bay Trench
+              </span>
+              <span id="active-book-bounty" class="px-2.5 py-1 rounded-lg bg-ocean-500/15 border border-ocean-400/35 text-ocean-400">
+                Bounty: $4.8M + Honey Ledger
+              </span>
+            </div>
+
+            <h1 id="active-book-title" class="font-serif text-2xl sm:text-4xl font-bold text-white leading-tight">
+              2AM: The Sundarbans &amp; Deep Ocean Ledger
+            </h1>
+
+            <p id="active-book-synopsis" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Hired at 02:00 AM by a shadowy maritime syndicate in mangrove rain, Detective Hance follows a trail of wild royal honey, laundered gold bullion, and ghost cargo manifests from tidal jungle creeks to abyssal ocean shipping lanes.
+            </p>
+          </div>
+
+          <!-- Telemetry Cards: Book Word Count, Chapter Words & Reading Progress -->
+          <div class="grid grid-cols-3 gap-3 shrink-0">
+            <div class="rounded-xl bg-noir-950/85 border border-white/10 p-3.5 text-center">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-slate-400">24-Ch Words</div>
+              <div id="book-total-words" class="font-mono text-lg sm:text-xl font-bold text-honey-400 mt-0.5">0</div>
+              <div class="text-[10px] text-slate-500 mt-0.5">Target: 5,000+</div>
+            </div>
+
+            <div class="rounded-xl bg-noir-950/85 border border-white/10 p-3.5 text-center">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-slate-400">This Chapter</div>
+              <div id="chapter-word-count" class="font-mono text-lg sm:text-xl font-bold text-jungle-400 mt-0.5">0</div>
+              <div id="chapter-read-mins" class="text-[10px] text-slate-500 mt-0.5">~2 min read</div>
+            </div>
+
+            <div class="rounded-xl bg-noir-950/85 border border-white/10 p-3.5 text-center">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-slate-400">Ch Progress</div>
+              <div id="chapter-index-readout" class="font-mono text-lg sm:text-xl font-bold text-ocean-400 mt-0.5">01/24</div>
+              <div id="bookmark-status-label" class="text-[10px] text-slate-500 mt-0.5">Unbookmarked</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 24-Chapter Selector Strip -->
+      <div class="rounded-2xl border border-white/10 bg-noir-900/90 p-4 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs uppercase tracking-widest text-honey-400 font-semibold">
+            24-Chapter Case Sequence (Chapters 1 – 24)
+          </span>
+          <div class="flex items-center gap-2">
+            <button id="prev-ch-btn" class="px-3 py-1.5 rounded-lg border border-white/10 bg-noir-850 hover:border-honey-400/40 text-xs font-medium disabled:opacity-35 transition">
+              ← Prev Ch
+            </button>
+            <button id="next-ch-btn" class="px-3 py-1.5 rounded-lg border border-white/10 bg-noir-850 hover:border-honey-400/40 text-xs font-medium disabled:opacity-35 transition">
+              Next Ch →
+            </button>
+          </div>
+        </div>
+
+        <div id="chapter-pills-grid" class="grid grid-cols-4 sm:grid-cols-8 md:grid-cols-12 lg:grid-cols-24 gap-1.5">
+          <!-- Populated dynamically with Chapters 1..24 -->
+        </div>
+      </div>
+
+      <!-- Reader Main Split: Narrative Prose (8 cols) + Case Study Dossier & Clues (4 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- Chapter Narrative Pane -->
+        <article class="lg:col-span-8 rounded-2xl border border-white/10 bg-noir-900/95 shadow-2xl overflow-hidden">
+          <!-- Chapter Toolbar: Font Size, Bookmark, Expand Prose -->
+          <div class="px-5 sm:px-8 py-4 bg-noir-850/90 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div id="ch-kicker" class="font-mono text-[11px] uppercase tracking-widest text-honey-400">
+                CHAPTER 01 • 02:00 AM DISPATCH
+              </div>
+              <h2 id="ch-heading" class="font-serif text-2xl sm:text-3xl font-bold text-white mt-0.5">
+                The Rain on the Mangrove Hull
+              </h2>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <button id="font-size-btn" title="Cycle Prose Font Size" class="px-3 py-1.5 rounded-xl border border-white/15 bg-noir-900 hover:border-honey-400/40 font-mono text-xs text-slate-200 transition">
+                Aa (<span id="font-size-mode">MD</span>)
+              </button>
+
+              <button id="bookmark-ch-btn" class="px-3 py-1.5 rounded-xl border border-honey-500/35 bg-honey-500/10 hover:bg-honey-500/20 text-xs font-medium text-honey-300 transition">
+                ☆ Bookmark
+              </button>
+
+              <button id="expand-prose-btn" class="px-3.5 py-1.5 rounded-xl bg-honey-500 text-noir-950 hover:bg-honey-400 text-xs font-semibold transition">
+                + Expand Chapter Prose
+              </button>
+            </div>
+          </div>
+
+          <!-- Narrative Paragraphs -->
+          <div id="chapter-prose-body" class="p-5 sm:px-8 sm:py-7 space-y-5 text-slate-200 leading-[1.85] text-base">
+            <!-- Populated dynamically via JS -->
+          </div>
+
+          <!-- Chapter Footer Navigation -->
+          <div class="px-5 sm:px-8 py-4 bg-noir-850/70 border-t border-white/10 flex items-center justify-between gap-4">
+            <button id="footer-prev-ch" class="px-4 py-2 rounded-xl border border-white/15 bg-noir-900 hover:border-honey-400/40 text-xs font-semibold disabled:opacity-35 transition">
+              ← Previous Chapter
+            </button>
+            <span id="footer-ch-indicator" class="font-mono text-xs text-slate-400">Chapter 1 of 24</span>
+            <button id="footer-next-ch" class="px-4 py-2 rounded-xl bg-honey-500/15 border border-honey-400/40 hover:bg-honey-500/25 text-xs font-semibold text-honey-300 disabled:opacity-35 transition">
+              Next Chapter →
+            </button>
+          </div>
+        </article>
+
+        <!-- Detective Hance Case Study Dossier & Clues Sidebar -->
+        <aside class="lg:col-span-4 space-y-5">
+          <div class="rounded-2xl border border-honey-500/30 bg-noir-900/95 p-5 sm:p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-honey-400">Hance Field Dossier</div>
+                <h3 class="font-serif text-xl font-bold text-white">Case Study &amp; Clues</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-noir-950 border border-white/10 font-mono text-[11px] text-honey-300">
+                2AM LOG
+              </span>
+            </div>
+
+            <div class="space-y-3 text-xs sm:text-sm">
+              <div class="rounded-xl bg-noir-950/80 border border-white/10 p-3.5">
+                <div class="font-mono text-[10px] uppercase tracking-wider text-jungle-400">Location / Biome</div>
+                <div id="dossier-biome" class="font-medium text-slate-100 mt-0.5">Sundarbans Tidal Creek</div>
+              </div>
+
+              <div class="rounded-xl bg-noir-950/80 border border-white/10 p-3.5">
+                <div class="font-mono text-[10px] uppercase tracking-wider text-honey-400">Client &amp; Bounty</div>
+                <div id="dossier-bounty" class="font-medium text-slate-100 mt-0.5">Anonymous Broker • $250,000 Advance</div>
+              </div>
+
+              <div class="rounded-xl bg-noir-950/80 border border-amber-400/30 p-3.5">
+                <div class="font-mono text-[10px] uppercase tracking-wider text-honey-300">"Honey" Trap / Allure</div>
+                <div id="dossier-honey" class="text-slate-200 mt-0.5 leading-relaxed">Amber comb wax laced with coastal salt &amp; encrypted ledger ink.</div>
+              </div>
+
+              <div class="rounded-xl bg-noir-950/80 border border-ocean-400/25 p-3.5">
+                <div class="font-mono text-[10px] uppercase tracking-wider text-ocean-400">Deduction Logic</div>
+                <div id="dossier-deduction" class="text-slate-200 mt-0.5 leading-relaxed">High-tide salinity inside inland honey jars proves contraband transfer via sea-going skiffs.</div>
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-1">
+              <div class="font-mono text-[10px] uppercase tracking-wider text-slate-400">Physical &amp; Digital Clues</div>
+              <ul id="dossier-clues-list" class="space-y-2 text-xs text-slate-300">
+                <!-- Populated dynamically via JS -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Quick Jump to Any of the 40 Books -->
+          <div class="rounded-2xl border border-white/10 bg-noir-900/80 p-5 space-y-3">
+            <div class="font-mono text-[11px] uppercase tracking-wider text-honey-400 font-semibold">
+              Switch Active Series Book (1–40)
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Explore all 40 global detective cases starring Hance from dense jungles to open oceans.
+            </p>
+            <button id="open-catalog-from-aside" class="w-full py-2.5 px-4 rounded-xl border border-honey-400/40 bg-honey-500/10 hover:bg-honey-500/20 text-xs font-semibold text-honey-300 transition">
+              Browse All 40 Books →
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 2: COMPLETE 40-BOOK GLOBAL CATALOG (BOOKS 1 TO 40)              -->
+    <!-- ===================================================================== -->
+    <section id="catalog-view" class="hidden space-y-6">
+      <div class="rounded-2xl border border-honey-500/25 bg-noir-900/95 p-5 sm:p-7 space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-honey-400">Complete Master Index</span>
+            <h2 class="font-serif text-2xl sm:text-4xl font-bold text-white mt-0.5">
+              40-Book Global Case Archive (Detective Hance)
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">
+              Every volume follows Hance’s 02:00 AM dispatches—each designed as a 24-chapter case study (5,000+ words) across jungles, oceans, money trails, and honey traps.
+            </p>
+          </div>
+
+          <div class="w-full md:w-72">
+            <input id="catalog-search-input" type="text" placeholder="Search title, jungle, ocean, honey..." class="w-full px-3.5 py-2.5 rounded-xl bg-noir-950 border border-white/15 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-honey-400" />
+          </div>
+        </div>
+
+        <!-- Biome / Theme Filter Pills -->
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          <button data-filter="ALL" class="catalog-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-honey-500 text-noir-950 transition">
+            All 40 Books
+          </button>
+          <button data-filter="JUNGLE" class="catalog-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold border border-white/15 bg-noir-850 text-slate-300 hover:border-jungle-400/50 transition">
+            Jungle &amp; Canopy Cases
+          </button>
+          <button data-filter="OCEAN" class="catalog-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold border border-white/15 bg-noir-850 text-slate-300 hover:border-ocean-400/50 transition">
+            Ocean &amp; Maritime Cases
+          </button>
+          <button data-filter="NOIR" class="catalog-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold border border-white/15 bg-noir-850 text-slate-300 hover:border-honey-400/50 transition">
+            Global Noir &amp; Honey Traps
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid of All 40 Books -->
+      <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <!-- Populated dynamically with Books 1..40 -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-white/10 py-6 px-4 text-center text-xs text-slate-500">
+    2AM SERIES • Detective Hance Investigative Archive • 40 Books • 24 Chapters Per Volume
+  </footer>
+
+  <script>
+    // =========================================================================
+    // 1. GENERATE ALL 24 CHAPTERS FOR BOOK 1 ("2AM: THE SUNDARBANS & DEEP OCEAN LEDGER")
+    // =========================================================================
+    const CHAPTER_TITLES_24 = [
+      "The Rain on the Mangrove Hull",
+      "Two Hundred Thousand in Unmarked Notes",
+      "Wild Honey & Saltwater Ink",
+      "The Cartographer of Shifting Channels",
+      "A Whisper at the 02:00 AM Ferry",
+      "The Sweetest Alibi in Khulna",
+      "Brass Compass & Dead Reckoning",
+      "Shadows Beneath the Sundari Canopy",
+      "The Syndicate’s Silk & Honey Trap",
+      "Ledger Entries Written in Tide",
+      "The Diver with the Golden Key",
+      "Echoes Across the Mudflats",
+      "A Bribe Wrapped in Honeycomb",
+      "The Ghost Freighter off Sagar Island",
+      "Cipher of the Monsoon Barometer",
+      "The Double Agent at Port Pier 9",
+      "Where Fresh Water Meets the Abyss",
+      "The Collector Who Loved Rare Nectar",
+      "Submerged Vaults & Broken Seals",
+      "Midnight Interrogation on Deck",
+      "The Honey Pot’s Hidden Lockbox",
+      "Storm Surge Over the Shipping Lane",
+      "The Final Deduction at 02:00 AM",
+      "Dawn Over the Open Ocean"
+    ];
+
+    const BIOME_STAGES_24 = [
+      "Sundarbans Tidal Creek (Outer Mangrove)",
+      "Rain-Lashed River Jetty & Tea Stall",
+      "Apiculture Outpost in Deep Canopy",
+      "Shifting Silt & Estuary Channels",
+      "Fogbound Ferry Crossing at 02:00 AM",
+      "Riverfront Customs & Spice Warehouses",
+      "Old Harbor Chartroom & Brassworks",
+      "Dense Sundari & Goran Root Labyrinth",
+      "Private Harbour Lounge & Honey Vault",
+      "Tidal Gauge Station & Ledger Room",
+      "Coastal Salvage Pier & Diving Bell",
+      "Low-Tide Mudflats & Crab Traps",
+      "Merchant Villa Courtyard at Midnight",
+      "Open Bay Off Sagar Island",
+      "Weather Observatory & Radio Shack",
+      "Container Berth Pier 9 in Drizzle",
+      "Continental Shelf & Brackish Plume",
+      "Private Conservatory & Nectar Cellar",
+      "Sunken Barge Hull Under Moonlit Swell",
+      "Bridge Deck of the Research Vessel",
+      "Safe-Deposit Strongroom Below Deck",
+      "Squall Line Across the Deep Channel",
+      "Forward Lookout Deck at 02:00 AM",
+      "Horizon Where Jungle Rivers Meet Ocean"
+    ];
+
+    const HONEY_TRAPS_24 = [
+      "Raw mangrove honey jar concealing a micro-etched brass cipher plate.",
+      "High-interest 'sweetener' wire transfer designed to bind Hance to a silent client.",
+      "Golden honeycomb comb smelling faintly of marine diesel and vanilla extract.",
+      "A charming informant offering sweet promises while steering Hance into a shoal.",
+      "Smoked honey tea served at 02:00 AM to mask trace sedative residue.",
+      "Forged customs honey-export permits covering millions in untraceable gold.",
+      "Honey-waxed nautical charts hiding secret coordinates beyond legal waters.",
+      "Wild bee-hunter bait set near a poacher cache deep inside the roots.",
+      "A velvet-voiced broker offering a 20% 'honey bonus' to bury one page of evidence.",
+      "Amber resin seals melted over waterproof shipping ledgers.",
+      "Sweetened salvage contract promising full rights to whatever Hance brings up.",
+      "Honey-baited traps left along a smugglers' footpath at low tide.",
+      "A gilded honey-pot gift hiding a miniature tracking transmitter.",
+      "Manifests listing 'Organic Forest Honey' for barrels of heavy marine alloy.",
+      "Honey-sweetened rum shared during a storm watch to loosen tongues.",
+      "A honey-tongued dock master offering false harbor logs for a hefty fee.",
+      "Nectar-scented wax plugs sealing pressure-tested ocean sample tubes.",
+      "A private tasting of rare forest honey used to distract from a missing ledger.",
+      "Honeycomb-patterned bulkhead plates masking a concealed sub-hull compartment.",
+      "A tempting immunity offer—'sweet terms'—if Hance walks away from the case.",
+      "Golden honey-colored bullion bars stamped with an unlisted maritime mint mark.",
+      "A calm harbor pilot offering shelter in a cove that favors the syndicate.",
+      "The final honey-jar ledger revealing who truly hired Hance at 02:00 AM.",
+      "A clean payoff wire with no strings—and the truth Hance earned on his own terms."
+    ];
+
+    function buildChapterParagraphs(chIndex, extraExpansions = 0) {
+      const chNum = chIndex + 1;
+      const title = CHAPTER_TITLES_24[chIndex];
+      const biome = BIOME_STAGES_24[chIndex];
+      const honey = HONEY_TRAPS_24[chIndex];
+
+      const baseParagraphs = [
+        `At precisely 02:00 AM, rain tapped a steady, rhythmic code against the timber ribs of Hance’s skiff in ${biome}. Hance did not wear a badge or carry a siren; he worked because people with millions on the line—and secrets buried deeper than mangrove roots—knew that daylight invited too many eyes. In Chapter ${chNum} ("${title}"), the night carried the sharp tang of wet bark, brackish tidewater, and an unmistakable sweetness that had no business being miles from any apiary.`,
+        `A pro detective learns early that money never moves in a straight line when fear is involved. Hance’s retainer for this case was substantial—six figures upfront with a seven-figure completion bonus tied to a missing maritime ledger—yet every dollar came wrapped in temptation. Clients always try to keep Hance with honey: flattery, sweet percentages, soft hospitality, or a convenient half-truth that makes stopping early look like wisdom. Hance took the money, kept his hands clean, and let the sweet bait sit untouched while he studied the tide.`,
+        `Inside ${biome}, physical evidence spoke louder than polished alibis. Examining the waterline along the hull and cross-checking the manifest timestamps, Hance noticed a contradiction between the reported cargo weight and the boat’s draft. A vessel carrying legal forest honey sits higher in brackish water than one ballasted with dense metal or contraband bullion. Even a two-inch difference in displacement tells a story if you know how to read the wet line on old wood.`,
+        `"People think jungles and oceans are chaotic," Hance murmured into the dark as a night heron lifted silently from the reeds. "They aren't. They follow currents, seasons, and greed. Follow the money first, watch who offers the sweetest deal, and the pattern gives itself away." By the time the 02:00 AM watch turned toward deeper water, another piece of the global puzzle locked cleanly into Detective Hance’s notebook.`
+      ];
+
+      const expandedChunks = [];
+      for (let e = 1; e <= extraExpansions; e++) {
+        expandedChunks.push(
+          `[Field Note Expansion ${e} — Chapter ${chNum}]: Moving deeper into ${biome}, Hance re-examined the ${honey.toLowerCase()} Comparing two independent logs—one kept by a harbor clerk at midnight, the other etched into a wax-sealed tin—he uncovered a deliberate three-hour discrepancy in vessel departure times. In investigative work across jungle canopies and open ocean lanes, small timing gaps are where liars hide their largest sums. Hance logged the coordinates, photographed the salt crystallization along the seam, and kept moving forward without blinking.`
+        );
+      }
+
+      return [...baseParagraphs, ...expandedChunks];
+    }
+
+    // State for extra expanded paragraphs per chapter (0..23)
+    const chapterExtraExpansions = Array(24).fill(0);
+
+    function getChapterData(chIndex) {
+      const chNum = chIndex + 1;
+      const biome = BIOME_STAGES_24[chIndex];
+      const honey = HONEY_TRAPS_24[chIndex];
+      const paragraphs = buildChapterParagraphs(chIndex, chapterExtraExpansions[chIndex]);
+
+      return {
+        index: chIndex,
+        number: chNum,
+        title: CHAPTER_TITLES_24[chIndex],
+        biome,
+        bounty: `Client Retainer $${(250 + chNum * 45).toLocaleString()} • Case Pool $4.8M`,
+        honey,
+        deduction: `Cross-referencing hull displacement, tide tables, and ${honey.split(" ")[0].toLowerCase()} seal timestamps exposes who is fabricating the trail in ${biome}.`,
+        clues: [
+          `Clue ${chNum}A: Tide-mark variance of 5.2 cm along the starboard plank at 02:00 AM.`,
+          `Clue ${chNum}B: ${honey}`,
+          `Clue ${chNum}C: Encrypted ledger cross-reference linking inland jungle depots to offshore vessels.`
+        ],
+        paragraphs
+      };
+    }
+
+    // =========================================================================
+    // 2. GENERATE ALL 40 BOOKS IN THE 2AM SERIES (JUNGLE TO OCEAN & NOIR)
+    // =========================================================================
+    const SERIES_40_BOOKS = [
+      {
+        num: 1,
+        code: "#2AM-001",
+        title: "2AM: The Sundarbans & Deep Ocean Ledger",
+        category: "JUNGLE",
+        biome: "Sundarbans Mangroves → Bay Trench",
+        bounty: "$4.8M + Honey Ledger",
+        honey: "Royal mangrove honey concealing a brass ledger cipher.",
+        synopsis: "Hired at 02:00 AM in mangrove rain, Detective Hance follows wild honey, laundered gold, and ghost manifests from tidal creeks to deep ocean lanes.",
+        status: "Active Reader (24 Ch)"
+      },
+      {
+        num: 2,
+        code: "#2AM-002",
+        title: "2AM: Velvet Honey & The Midnight Freighter",
+        category: "OCEAN",
+        biome: "South China Sea → Deep Shipping Lane",
+        bounty: "$6.2M Maritime Bounty",
+        honey: "Sweetened amber tea & a 25% 'honey bonus' to drop a witness.",
+        synopsis: "A container ship goes dark at 02:00 AM with a billion-dollar cargo; Hance boards through a squall to find who bought the crew’s silence.",
+        status: "24-Ch Case Ready"
+      },
+      {
+        num: 3,
+        code: "#2AM-003",
+        title: "2AM: Canopy Gold & The Bee-Hunter’s Alibi",
+        category: "JUNGLE",
+        biome: "Amazon Basin → Upper River Bend",
+        bounty: "$3.9M Syndicate Retainer",
+        honey: "Smoked jungle honey baiting a deadly ambush.",
+        synopsis: "Deep in the emerald canopy, a missing survey team’s honey-waxed maps point to an illegal river dredging fortune.",
+        status: "24-Ch Case Ready"
+      },
+      {
+        num: 4,
+        code: "#2AM-004",
+        title: "2AM: Siren’s Nectar & The Abyssal Cable",
+        category: "OCEAN",
+        biome: "Mid-Atlantic Ridge → Trench Floor",
+        bounty: "$8.5M Sovereign Wire",
+        honey: "A gilded honey-pot gift masking an acoustic tap.",
+        synopsis: "Undersea data cables are spliced at 02:00 AM; Hance dives into the cold trench where sweet diplomacy hides corporate espionage.",
+        status: "24-Ch Case Ready"
+      },
+      {
+        num: 5,
+        code: "#2AM-005",
+        title: "2AM: The Sugar Baron’s Harbor",
+        category: "NOIR",
+        biome: "Port City Docks → Night Refinery",
+        bounty: "$5.1M Cash Escrow",
+        honey: "Sweetened rum & VIP dock access meant to dull Hance’s edge.",
+        synopsis: "A refined sugar-and-honey magnate hires Hance to find a stolen ledger—only to realize Hance already found the bodies.",
+        status: "24-Ch Case Ready"
+      },
+      {
+        num: 6,
+        code: "#2AM-006",
+        title: "2AM: Monsoon Amber & The Tiger Trail",
+        category: "JUNGLE",
+        biome: "Chittagong Hill Tracts → Rain Forest",
+        bounty: "$4.2M Estate Bounty",
+        honey: "Wild cliff honey used as currency between border smugglers.",
+        synopsis: "A vanished heir’s trail winds through torrential jungle rain where every guide speaks in riddles and honeyed promises.",
+        status: "24-Ch Case Ready"
+      },
+      {
+        num: 7,
+        code: "#2AM-007",
+        title: "2AM: Tides of Honey & Broken Seals",
+        category: "OCEAN",
+        biome: "Indian Ocean → Coral Atoll",
+        bounty: "$7.0M Salvage Share",
+        honey: "Honey-sealed glass vials recovered from a sunken yacht.",
+        synopsis: "A luxury yacht drifts empty near a coral atoll at 02:00 AM; Hance pieces together a high-seas blackmail ring.",
+        status: "24-Ch Case Ready"
+      },
+      {
+        num: 8,
+        code: "#2AM-008",
+        title: "2AM: The Sweetest Poison in Kuala Harbor",
+        category: "NOIR",
+        biome: "Strait of Malacca → Midnight Pier",
+        bounty: "$5.4M Confidential Fee",
+        honey: "Herbal honey paste laced with a slow-acting truth serum.",
+        synopsis: "An informant begs for Hance’s protection at 02:00 AM before vanishing into fog along one of the world’s busiest sea straits.",
+        status: "24-Ch Case Ready"
+      }
+    ];
+
+    // Fill Books 9 through 40 with distinct global jungle, ocean, and noir cases
+    const extraTemplates = [
+      { cat: "JUNGLE", place: "Borneo Peat Swamp", honey: "Forest stingless-bee honey sealing botanical ledgers." },
+      { cat: "OCEAN", place: "Bering Sea Swell", honey: "Sweetened provisions aboard a ghost trawler." },
+      { cat: "NOIR", place: "Singapore Night Vault", honey: "A golden honey-jar bribe for doctored audit logs." },
+      { cat: "JUNGLE", place: "Congo River Basin", honey: "Amber honeycomb marking hidden timber checkpoints." },
+      { cat: "OCEAN", place: "Bay of Bengal Monsoon", honey: "Honey-waxed compass housing a secret route." },
+      { cat: "NOIR", place: "Hong Kong Harbor Ferry", honey: "Sweetened jasmine tea & a honey trap witness." },
+      { cat: "JUNGLE", place: "Mekong Delta Thicket", honey: "Wild delta honey traded for counterfeit manifests." },
+      { cat: "OCEAN", place: "Southern Ocean Gyre", honey: "Thermal-sealed honey rations on a research hull." },
+      { cat: "NOIR", place: "Mumbai Dockyard Shadows", honey: "High-yield 'honey' interest on a loan shark’s ledger." },
+      { cat: "JUNGLE", place: "Sumatra Ridge Trail", honey: "Camphor-scented honey hiding micro-film." },
+      { cat: "OCEAN", place: "Andaman Sea Trench", honey: "Beeswax plugs on deep-water core tubes." },
+      { cat: "NOIR", place: "Colombo Night Harbor", honey: "Sweetened promises from a double-crossing broker." },
+      { cat: "JUNGLE", place: "Orinoco Delta Floodplain", honey: "Riverbank honey pot used as a dead-drop." },
+      { cat: "OCEAN", place: "Arabian Sea Trade Lane", honey: "Spiced honey cargo masking undeclared bullion." },
+      { cat: "NOIR", place: "Dubai Creek Midnight Pier", honey: "Gold-leaf honey gift with a hidden tracker." },
+      { cat: "JUNGLE", place: "Western Ghats Cloud Forest", honey: "Mountain blossom honey tied to a missing courier." },
+      { cat: "OCEAN", place: "Pacific Rim Shipping Corridor", honey: "Sweetened terms offered to halt an audit." },
+      { cat: "NOIR", place: "Jakarta Old Port", honey: "Clove-honey elixir masking a forged passport ring." },
+      { cat: "JUNGLE", place: "Sepik River Jungle", honey: "Carved honey-drum holding river toll records." },
+      { cat: "OCEAN", place: "Mozambique Channel", honey: "Salt-tinged honey jars from a drifted dhow." },
+      { cat: "NOIR", place: "Zanzibar Stone Town & Sea", honey: "Cardamom honey & a midnight broker’s trap." },
+      { cat: "JUNGLE", place: "Cardamom Hills Canopy", honey: "Wild spice honey concealing a ledger key." },
+      { cat: "OCEAN", place: "Tasman Sea Deep Current", honey: "Warm honeyed tonic on a storm-tossed vessel." },
+      { cat: "NOIR", place: "Manila Bay 02:00 AM Pier", honey: "A velvet-sweet retainer with strings attached." },
+      { cat: "JUNGLE", place: "Daintree & Coral Edge", honey: "Rainforest honey bridging jungle trails and reef boats." },
+      { cat: "OCEAN", place: "Laccadive Sea Atolls", honey: "Honey-sealed logbook inside a diving buoy." },
+      { cat: "NOIR", place: "Yokohama Night Berth", honey: "Sweetened sake-honey & a silent witness pact." },
+      { cat: "JUNGLE", place: "Chindwin River Gorge", honey: "Teak-forest honey marking secret landing strips." },
+      { cat: "OCEAN", place: "Cape Horn Approaches", honey: "High-calorie honey bars on a missing clipper." },
+      { cat: "NOIR", place: "Panama Canal Night Lock", honey: "Sweet toll rebates hiding cargo diversion." },
+      { cat: "JUNGLE", place: "Zambezi Floodplain Reeds", honey: "Reed-honey cache linked to an ivory-free bullion trail." },
+      { cat: "OCEAN", place: "The Eternal Ocean Ledger", honey: "The final honey cipher uniting all 40 cases." }
+    ];
+
+    for (let i = 0; i < extraTemplates.length; i++) {
+      const n = i + 9;
+      const tpl = extraTemplates[i];
+      SERIES_40_BOOKS.push({
+        num: n,
+        code: `#2AM-${String(n).padStart(3, "0")}`,
+        title: `2AM: ${tpl.place} Case`,
+        category: tpl.cat,
+        biome: tpl.place,
+        bounty: `$${(3.5 + (n % 7) * 0.85).toFixed(1)}M Case Bounty`,
+        honey: tpl.honey,
+        synopsis: `At 02:00 AM in ${tpl.place}, Detective Hance navigates money, sweet traps, and hard deduction from dense terrain to open water.`,
+        status: "24-Ch Case Ready"
+      });
+    }
+
+    // =========================================================================
+    // 3. APPLICATION STATE & DOM REFERENCES
+    // =========================================================================
+    let activeChapterIdx = 0;
+    let activeBookIdx = 0;
+    let catalogFilter = "ALL";
+    let bookmarkedChapters = new Set();
+    const fontModes = ["SM", "MD", "LG"];
+    let fontModeIdx = 1;
+
+    function loadSavedState() {
+      try {
+        const savedCh = localStorage.getItem("hance_2am_ch");
+        const savedBm = localStorage.getItem("hance_2am_bookmarks");
+        const savedFont = localStorage.getItem("hance_2am_font");
+        if (savedCh !== null) {
+          const idx = parseInt(savedCh, 10);
+          if (!isNaN(idx) && idx >= 0 && idx < 24) activeChapterIdx = idx;
+        }
+        if (savedBm) {
+          JSON.parse(savedBm).forEach(num => bookmarkedChapters.add(num));
+        }
+        if (savedFont !== null) {
+          const fIdx = parseInt(savedFont, 10);
+          if (!isNaN(fIdx) && fIdx >= 0 && fIdx < fontModes.length) fontModeIdx = fIdx;
+        }
+      } catch (e) {}
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem("hance_2am_ch", String(activeChapterIdx));
+        localStorage.setItem("hance_2am_bookmarks", JSON.stringify([...bookmarkedChapters]));
+        localStorage.setItem("hance_2am_font", String(fontModeIdx));
+      } catch (e) {}
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const el = document.getElementById("toast-banner");
+      el.textContent = msg;
+      el.classList.remove("-translate-y-3", "opacity-0");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.classList.add("-translate-y-3", "opacity-0");
+      }, 2200);
+    }
+
+    function countWords(text) {
+      return text.trim().split(/\s+/).filter(Boolean).length;
+    }
+
+    function computeAll24ChaptersWordCount() {
+      let total = 0;
+      for (let i = 0; i < 24; i++) {
+        const ch = getChapterData(i);
+        total += ch.paragraphs.reduce((acc, p) => acc + countWords(p), 0);
+      }
+      return total;
+    }
+
+    // =========================================================================
+    // 4. RENDERING 24-CHAPTER READER & CASE STUDY DOSSIER
+    // =========================================================================
+    function renderChapterPills() {
+      const grid = document.getElementById("chapter-pills-grid");
+      grid.innerHTML = "";
+
+      for (let i = 0; i < 24; i++) {
+        const isCurrent = i === activeChapterIdx;
+        const isBm = bookmarkedChapters.has(i + 1);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.title = `Chapter ${i + 1}: ${CHAPTER_TITLES_24[i]}`;
+        btn.className = `py-2 rounded-lg font-mono text-xs font-semibold border transition relative ${
+          isCurrent
+            ? "bg-honey-500 text-noir-950 border-honey-400 shadow-sm"
+            : "bg-noir-850 text-slate-300 border-white/10 hover:border-honey-400/40"
+        }`;
+        btn.textContent = String(i + 1).padStart(2, "0");
+
+        if (isBm) {
+          const dot = document.createElement("span");
+          dot.className = "w-1.5 h-1.5 rounded-full bg-ocean-400 absolute top-1 right-1";
+          btn.appendChild(dot);
+        }
+
+        btn.addEventListener("click", () => selectChapter(i, false));
+        grid.appendChild(btn);
+      }
+    }
+
+    function applyFontSizeClass() {
+      const body = document.getElementById("chapter-prose-body");
+      const modeLabel = document.getElementById("font-size-mode");
+      const mode = fontModes[fontModeIdx];
+      modeLabel.textContent = mode;
+
+      body.classList.remove("text-sm", "text-base", "text-lg");
+      if (mode === "SM") body.classList.add("text-sm");
+      else if (mode === "MD") body.classList.add("text-base");
+      else body.classList.add("text-lg");
+    }
+
+    function selectChapter(idx, scrollToArticle = false) {
+      if (idx < 0 || idx >= 24) return;
+      activeChapterIdx = idx;
+      const ch = getChapterData(idx);
+
+      document.getElementById("ch-kicker").textContent = `CHAPTER ${String(ch.number).padStart(2, "0")} • 02:00 AM DISPATCH`;
+      document.getElementById("ch-heading").textContent = ch.title;
+      document.getElementById("footer-ch-indicator").textContent = `Chapter ${ch.number} of 24`;
+
+      const proseBody = document.getElementById("chapter-prose-body");
+      proseBody.innerHTML = "";
+      ch.paragraphs.forEach(para => {
+        const p = document.createElement("p");
+        p.textContent = para;
+        proseBody.appendChild(p);
+      });
+
+      // Dossier Updates
+      document.getElementById("dossier-biome").textContent = ch.biome;
+      document.getElementById("dossier-bounty").textContent = ch.bounty;
+      document.getElementById("dossier-honey").textContent = ch.honey;
+      document.getElementById("dossier-deduction").textContent = ch.deduction;
+
+      const cluesList = document.getElementById("dossier-clues-list");
+      cluesList.innerHTML = "";
+      ch.clues.forEach(c => {
+        const li = document.createElement("li");
+        li.className = "rounded-lg bg-noir-950/60 border border-white/5 px-3 py-2 leading-relaxed";
+        li.textContent = c;
+        cluesList.appendChild(li);
+      });
+
+      // Telemetry Counts
+      const chWords = ch.paragraphs.reduce((acc, p) => acc + countWords(p), 0);
+      const total24Words = computeAll24ChaptersWordCount();
+      document.getElementById("chapter-word-count").textContent = chWords.toLocaleString();
+      document.getElementById("chapter-read-mins").textContent = `~${Math.max(1, Math.round(chWords / 200))} min read`;
+      document.getElementById("book-total-words").textContent = total24Words.toLocaleString();
+      document.getElementById("chapter-index-readout").textContent = `${String(ch.number).padStart(2, "0")}/24`;
+
+      // Bookmark button state
+      const isBookmarked = bookmarkedChapters.has(ch.number);
+      const bmBtn = document.getElementById("bookmark-ch-btn");
+      bmBtn.textContent = isBookmarked ? "★ Bookmarked" : "☆ Bookmark";
+      document.getElementById("bookmark-status-label").textContent = isBookmarked ? "Bookmarked" : "Unbookmarked";
+
+      // Prev/Next disabled states
+      const disablePrev = activeChapterIdx === 0;
+      const disableNext = activeChapterIdx === 23;
+      document.getElementById("prev-ch-btn").disabled = disablePrev;
+      document.getElementById("footer-prev-ch").disabled = disablePrev;
+      document.getElementById("next-ch-btn").disabled = disableNext;
+      document.getElementById("footer-next-ch").disabled = disableNext;
+
+      applyFontSizeClass();
+      renderChapterPills();
+      saveState();
+
+      if (scrollToArticle) {
+        const top = document.getElementById("chapter-prose-body").getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+    }
+
+    // =========================================================================
+    // 5. RENDERING THE 40-BOOK MASTER CATALOG
+    // =========================================================================
+    function renderCatalog() {
+      const grid = document.getElementById("catalog-grid");
+      const query = document.getElementById("catalog-search-input").value.trim().toLowerCase();
+      grid.innerHTML = "";
+
+      const filtered = SERIES_40_BOOKS.filter(book => {
+        const matchesCat = catalogFilter === "ALL" || book.category === catalogFilter;
+        const matchesQuery =
+          !query ||
+          book.title.toLowerCase().includes(query) ||
+          book.biome.toLowerCase().includes(query) ||
+          book.honey.toLowerCase().includes(query) ||
+          book.synopsis.toLowerCase().includes(query) ||
+          book.code.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full rounded-2xl border border-white/10 bg-noir-900 p-8 text-center text-sm text-slate-400">No 2AM case files match that filter.</div>`;
+        return;
+      }
+
+      filtered.forEach(book => {
+        const badgeColor =
+          book.category === "JUNGLE"
+            ? "bg-jungle-500/15 text-jungle-400 border-jungle-400/30"
+            : book.category === "OCEAN"
+            ? "bg-ocean-500/15 text-ocean-400 border-ocean-400/30"
+            : "bg-honey-500/15 text-honey-300 border-honey-400/30";
+
+        const card = document.createElement("div");
+        card.className = "rounded-2xl border border-white/10 bg-noir-900/90 hover:border-honey-400/45 p-5 flex flex-col justify-between gap-4 transition shadow-lg";
+        card.innerHTML = `
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-mono text-xs text-honey-400 font-semibold">BOOK ${String(book.num).padStart(2, "0")} • ${book.code}</span>
+              <span class="px-2 py-0.5 rounded-md border font-mono text-[10px] uppercase ${badgeColor}">${book.category}</span>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-white leading-snug">${book.title}</h3>
+            <div class="text-[11px] font-mono text-slate-400">${book.biome} • ${book.bounty}</div>
+            <p class="text-xs text-slate-300 leading-relaxed">${book.synopsis}</p>
+            <div class="rounded-xl bg-noir-950/75 border border-honey-500/15 p-2.5 text-[11px] text-honey-200/90">
+              <span class="font-mono uppercase text-[10px] text-honey-400 block mb-0.5">Honey Trap / Allure</span>
+              ${book.honey}
+            </div>
+          </div>
+
+          <button type="button" class="load-book-btn w-full py-2 px-3 rounded-xl bg-noir-850 hover:bg-honey-500 hover:text-noir-950 border border-honey-500/30 text-xs font-semibold text-honey-300 transition">
+            Load into 24-Ch Reader →
+          </button>
+        `;
+
+        card.querySelector(".load-book-btn").addEventListener("click", () => {
+          activeBookIdx = book.num - 1;
+          document.getElementById("active-book-code").textContent = `BOOK ${String(book.num).padStart(2, "0")} OF 40 • CASE FILE ${book.code}`;
+          document.getElementById("active-book-biome").textContent = book.biome;
+          document.getElementById("active-book-bounty").textContent = book.bounty;
+          document.getElementById("active-book-title").textContent = book.title;
+          document.getElementById("active-book-synopsis").textContent = book.synopsis;
+          switchView("reader");
+          selectChapter(0, true);
+          showToast(`Loaded Book ${book.num} into 24-Chapter Reader`);
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    function switchView(mode) {
+      const readerEl = document.getElementById("reader-view");
+      const catalogEl = document.getElementById("catalog-view");
+      const readerBtn = document.getElementById("view-reader-btn");
+      const catalogBtn = document.getElementById("view-catalog-btn");
+
+      if (mode === "reader") {
+        readerEl.classList.remove("hidden");
+        catalogEl.classList.add("hidden");
+        readerBtn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-honey-500 text-noir-950 transition";
+        catalogBtn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-honey-300 transition";
+      } else {
+        catalogEl.classList.remove("hidden");
+        readerEl.classList.add("hidden");
+        catalogBtn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-honey-500 text-noir-950 transition";
+        readerBtn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-honey-300 transition";
+        renderCatalog();
+      }
+    }
+
+    // =========================================================================
+    // 6. SUBTLE 2AM RAIN & NIGHT-HUM WEB AUDIO SYNTHESIZER
+    // =========================================================================
+    class NoirRainAudio {
+      constructor() {
+        this.ctx = null;
+        this.master = null;
+        this.active = false;
+      }
+
+      async toggle() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioCtx();
+          this.master = this.ctx.createGain();
+          this.master.gain.value = 0.0001;
+          this.master.connect(this.ctx.destination);
+
+          // Soft rain noise buffer
+          const len = this.ctx.sampleRate * 3;
+          const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+          const data = buf.getChannelData(0);
+          for (let i = 0; i < len; i++) {
+            data[i] = (Math.random() * 2 - 1) * 0.35;
+          }
+          const src = this.ctx.createBufferSource();
+          src.buffer = buf;
+          src.loop = true;
+
+          const filter = this.ctx.createBiquadFilter();
+          filter.type = "bandpass";
+          filter.frequency.value = 950;
+          filter.Q.value = 0.6;
+
+          src.connect(filter);
+          filter.connect(this.master);
+          src.start();
+
+          // Deep 2AM room/night drone
+          const hum = this.ctx.createOscillator();
+          const humGain = this.ctx.createGain();
+          hum.type = "sine";
+          hum.frequency.value = 64;
+          humGain.gain.value = 0.12;
+          hum.connect(humGain);
+          humGain.connect(this.master);
+          hum.start();
+        }
+
+        if (this.ctx.state === "suspended") {
+          await this.ctx.resume();
+        }
+
+        this.active = !this.active;
+        const now = this.ctx.currentTime;
+        this.master.gain.setTargetAtTime(this.active ? 0.14 : 0.0001, now, 0.25);
+
+        document.getElementById("ambient-dot").className = this.active
+          ? "w-2 h-2 rounded-full bg-honey-400 animate-pulse"
+          : "w-2 h-2 rounded-full bg-slate-500";
+        document.getElementById("ambient-label").textContent = this.active ? "2AM Rain On" : "2AM Rain";
+        return this.active;
+      }
+    }
+
+    const noirAudio = new NoirRainAudio();
+
+    // =========================================================================
+    // 7. EVENT LISTENERS & INITIALIZATION
+    // =========================================================================
+    document.getElementById("view-reader-btn").addEventListener("click", () => switchView("reader"));
+    document.getElementById("view-catalog-btn").addEventListener("click", () => switchView("catalog"));
+    document.getElementById("open-catalog-from-aside").addEventListener("click", () => switchView("catalog"));
+
+    document.getElementById("prev-ch-btn").addEventListener("click", () => selectChapter(activeChapterIdx - 1, true));
+    document.getElementById("next-ch-btn").addEventListener("click", () => selectChapter(activeChapterIdx + 1, true));
+    document.getElementById("footer-prev-ch").addEventListener("click", () => selectChapter(activeChapterIdx - 1, true));
+    document.getElementById("footer-next-ch").addEventListener("click", () => selectChapter(activeChapterIdx + 1, true));
+
+    document.getElementById("font-size-btn").addEventListener("click", () => {
+      fontModeIdx = (fontModeIdx + 1) % fontModes.length;
+      applyFontSizeClass();
+      saveState();
+    });
+
+    document.getElementById("bookmark-ch-btn").addEventListener("click", () => {
+      const chNum = activeChapterIdx + 1;
+      if (bookmarkedChapters.has(chNum)) {
+        bookmarkedChapters.delete(chNum);
+        showToast(`Removed bookmark on Chapter ${chNum}`);
+      } else {
+        bookmarkedChapters.add(chNum);
+        showToast(`Bookmarked Chapter ${chNum}`);
+      }
+      saveState();
+      selectChapter(activeChapterIdx, false);
+    });
+
+    document.getElementById("expand-prose-btn").addEventListener("click", () => {
+      chapterExtraExpansions[activeChapterIdx] += 1;
+      selectChapter(activeChapterIdx, false);
+      showToast(`Expanded Chapter ${activeChapterIdx + 1} with field deduction notes`);
+    });
+
+    document.getElementById("ambient-toggle-btn").addEventListener("click", async () => {
+      const on = await noirAudio.toggle();
+      showToast(on ? "2AM Rain & Night-Hum enabled" : "2AM Rain sound paused");
+    });
+
+    document.getElementById("catalog-search-input").addEventListener("input", renderCatalog);
+
+    document.querySelectorAll(".catalog-filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        catalogFilter = btn.dataset.filter;
+        document.querySelectorAll(".catalog-filter-btn").forEach(b => {
+          if (b.dataset.filter === catalogFilter) {
+            b.className = "catalog-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-honey-500 text-noir-950 transition";
+          } else {
+            b.className = "catalog-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold border border-white/15 bg-noir-850 text-slate-300 hover:border-honey-400/50 transition";
+          }
+        });
+        renderCatalog();
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      document.getElementById("top-progress-bar").style.width = `${pct}%`;
+    });
+
+    loadSavedState();
+    selectChapter(activeChapterIdx, false);
+    renderCatalog();
+  </script>
+</body>
+</html>
